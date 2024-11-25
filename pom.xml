@@ -10,4 +10,13 @@
         <maven.compiler.release>23</maven.compiler.release>
         <exec.mainClass>com.mycompany.java.lab.JAVALAB</exec.mainClass>
     </properties>
+    <dependencies>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.33</version> <!-- Verifica que sea la última versión estable -->
+        </dependency>
+    </dependencies>
+    
+
 </project>
