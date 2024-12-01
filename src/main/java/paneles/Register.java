@@ -19,6 +19,27 @@ public class Register extends javax.swing.JFrame {
     /**
      * Creates new form Register
      */
+    
+    public static boolean ContraseñaVal(String password){
+        if (password.length() < 8) {
+            return false;
+        }
+
+        if (!password.matches(".*[a-z].*")) {
+            return false;
+        }
+
+        if (!password.matches(".*[A-Z].*")) {
+            return false;
+        }
+
+        if (!password.matches(".*\\d.*")) {
+            return false;
+        }
+
+        return true;
+    }
+    
     public Register() {
         initComponents();
     }
@@ -41,7 +62,6 @@ public class Register extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         txtpassword = new javax.swing.JPasswordField();
-        txtuser = new javax.swing.JTextField();
         txtLName = new javax.swing.JTextField();
         tipoUsuario = new javax.swing.JComboBox<>();
         txtDoc = new javax.swing.JTextField();
@@ -135,13 +155,6 @@ public class Register extends javax.swing.JFrame {
             }
         });
 
-        txtuser.setBorder(javax.swing.BorderFactory.createTitledBorder("Username"));
-        txtuser.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtuserActionPerformed(evt);
-            }
-        });
-
         txtLName.setBorder(javax.swing.BorderFactory.createTitledBorder("Last Name"));
         txtLName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -149,7 +162,7 @@ public class Register extends javax.swing.JFrame {
             }
         });
 
-        tipoUsuario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar", "Usuario", "Administrador" }));
+        tipoUsuario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar", "Vendedor", "Administrador" }));
         tipoUsuario.setBorder(javax.swing.BorderFactory.createTitledBorder("Tipo de Usuario"));
         tipoUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -187,17 +200,16 @@ public class Register extends javax.swing.JFrame {
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(txtFName, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(txtuser, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(txtDoc, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(txtLName, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(txtpassword, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(txtDoc, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(tipoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(33, 33, 33)
                                 .addComponent(SucLab, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(112, Short.MAX_VALUE))
+                .addContainerGap(94, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -212,15 +224,15 @@ public class Register extends javax.swing.JFrame {
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(39, 39, 39)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtuser, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
-                    .addComponent(txtFName))
+                    .addComponent(txtFName, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(txtDoc)))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(txtpassword, javax.swing.GroupLayout.DEFAULT_SIZE, 58, Short.MAX_VALUE)
                     .addComponent(txtLName))
-                .addGap(18, 18, 18)
-                .addComponent(txtDoc, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 73, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(tipoUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 58, Short.MAX_VALUE)
                     .addComponent(SucLab))
@@ -267,7 +279,6 @@ public class Register extends javax.swing.JFrame {
         // TODO add your handling code here:
         String nombre = txtFName.getText();
         String apellido = txtLName.getText();
-        String username = txtuser.getText();
         String password = txtpassword.getText();
         String Doc_ident = txtDoc.getText();
         String tipousuario = tipoUsuario.getSelectedItem().toString();
@@ -291,25 +302,27 @@ public class Register extends javax.swing.JFrame {
         }
         
         
-        if(nombre.isEmpty() || apellido.isEmpty() || username.isEmpty() || password.isEmpty() || tipousuario.isEmpty()) {
+        if(nombre.isEmpty() || apellido.isEmpty() ||  password.isEmpty() || tipousuario.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Debe rellenar todos los Datos");
         } else {
             if(tipousuario.equalsIgnoreCase("Seleccionar") || suc.equalsIgnoreCase("Seleccionar")) {
                 JOptionPane.showMessageDialog(null, "Debe seleccionar un Tipo de Usuario y/o Sucursal ");
             } else {
-                try {
-                    String consulta = "INSERT INTO usuarios(Doc_ident,Nombres, Apellidos, Contraseña, Usuario,Suc_Lab, ID_Rol)VALUES('"+Doc_ident+"','"+nombre+"', '"+apellido+"', '"+password+"', '"+username+"','"+IdSuc+"', '"+IdRol+"');";
-                    PreparedStatement ps = cn.prepareCall(consulta);
-                    ps.executeUpdate();
-                    JOptionPane.showMessageDialog(null, "Se guardaron correctamente los datos");
-                    Login log = new Login();
-                    log.setVisible(true);
-                    log.pack();
-                    log.setLocationRelativeTo(null);
-                    log.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                    this.dispose();
-                } catch (Exception e) {
-                    JOptionPane.showMessageDialog(null, "No se pudo guardar los datos: " + e);
+                if(ContraseñaVal(password)){
+                    try {
+                        String consulta = "INSERT INTO usuarios(Doc_ident,Nombres, Apellidos, Contraseña, Suc_Lab, ID_Rol)VALUES('"+Doc_ident+"','"+nombre+"', '"+apellido+"', '"+password+"','"+IdSuc+"', '"+IdRol+"');";
+                        PreparedStatement ps = cn.prepareCall(consulta);
+                        ps.executeUpdate();
+                        JOptionPane.showMessageDialog(null, "Se guardaron correctamente los datos");
+                        Login log = new Login();
+                        log.setVisible(true);
+                        log.pack();
+                        log.setLocationRelativeTo(null);
+                        log.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                        this.dispose();
+                    } catch (Exception e) {
+                        JOptionPane.showMessageDialog(null, "No se pudo guardar los datos: " + e);
+                    }
                 }
             }
         }
@@ -322,10 +335,6 @@ public class Register extends javax.swing.JFrame {
     private void txtpasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtpasswordActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtpasswordActionPerformed
-
-    private void txtuserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtuserActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtuserActionPerformed
 
     private void txtLNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtLNameActionPerformed
         // TODO add your handling code here:
@@ -341,6 +350,7 @@ public class Register extends javax.swing.JFrame {
 
     private void SucLabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SucLabActionPerformed
         // TODO add your handling code here:
+        System.exit(0);
     }//GEN-LAST:event_SucLabActionPerformed
 
     /**
@@ -392,6 +402,5 @@ public class Register extends javax.swing.JFrame {
     private javax.swing.JTextField txtFName;
     private javax.swing.JTextField txtLName;
     private javax.swing.JPasswordField txtpassword;
-    private javax.swing.JTextField txtuser;
     // End of variables declaration//GEN-END:variables
 }

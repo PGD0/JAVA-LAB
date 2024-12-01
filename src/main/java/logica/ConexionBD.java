@@ -15,7 +15,7 @@ public class ConexionBD {
     
     public Connection Conexion(){
         try{
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             cn = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/laboratorio_final","root","");
             System.out.println("Conexion establecida...");
         }catch(Exception e) {

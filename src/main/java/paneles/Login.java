@@ -226,6 +226,7 @@ public class Login extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+        System.exit(0);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -236,11 +237,17 @@ public class Login extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Porfavor digite todos los datos");
         } else {
             try {
-                String consulta = "SELECT * FROM usuarios WHERE Usuario='"+usuario+"' AND Contraseña='"+password+"'";
+                String consulta = "SELECT * FROM usuarios WHERE Doc_ident='"+usuario+"' AND Contraseña='"+password+"'";
                 PreparedStatement ps = cn.prepareStatement(consulta);
                 ResultSet rs = ps.executeQuery();
                 if(rs.next()){
-                    JOptionPane.showMessageDialog(null, "Felicidades!!!");
+                    NInicio in = new NInicio();
+                    in.setVisible(true);
+                    in.pack();
+                    in.setLocationRelativeTo(null);
+                    in.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                    this.dispose();
+        this.dispose();
                 } else {
                     JOptionPane.showMessageDialog(null, "Usuario y/o Contraseña incorrectos");
                 }
@@ -259,7 +266,7 @@ public class Login extends javax.swing.JFrame {
         rgf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.dispose();
     }//GEN-LAST:event_jLabel6MouseClicked
-
+    
     /**
      * @param args the command line arguments
      */
